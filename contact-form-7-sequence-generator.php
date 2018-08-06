@@ -46,7 +46,8 @@ function wpcf7sg_generate_number( $wpcf7_data ) {
 	$mail_2 = $properties['mail_2']['body'];
 	if( preg_match( "/{$shortcode}/", $mail ) || preg_match( "/[{$shortcode}]/", $mail_2 ) ) {
 		$option = 'wpcf7sg_' . $wpcf7_data->id();
-		$sequence_number = (int)get_option( $option ) + 1;
+
+		$sequence_number = get_option($option) ? (int)get_option( $option ) + 1 : 1600; // TODO: Change magic number for user preset.
 		update_option( $option, $sequence_number );
 		
 		$properties['mail']['body'] = str_replace( $shortcode, $sequence_number, $mail );
